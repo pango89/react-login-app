@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import { VisibilityOutlined, VisibilityOffOutlined } from "@material-ui/icons";
 import ErrorIcon from "@material-ui/icons/Error";
+import { login } from "../../authentication/authenticationActions";
 
 const styles = () => ({
   loginContainer: {
@@ -68,6 +69,9 @@ class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      username: "",
+      password: "",
+      loading: false,
       isPasswordHidden: true
     };
   }
@@ -76,6 +80,31 @@ class LoginForm extends React.Component {
     this.setState({
       isPasswordHidden: !this.state.isPasswordHidden
     });
+  };
+
+  onLoginClick = async () => {
+    const input = {
+      username: this.state.username,
+      password: this.state.password
+    };
+
+    this.setState({
+      loading: true
+    });
+
+    const response = await login(input);
+    if (response.error) {
+      this.setState({
+        loading: false,
+        errorMessage: response.error_description
+      });
+    } else {
+      this.setState({
+        loading: false,
+        errorMessage: ERROR_MESSAGES.EMPTY
+      });
+      // this.props.history.push("/IBPlanning/Shipments");
+    }
   };
 
   render() {
@@ -148,6 +177,7 @@ class LoginForm extends React.Component {
                 variant="contained"
                 color="primary"
                 className={classes.button}
+                onClick={this.onLoginClick}
               >
                 Sign In
               </Button>

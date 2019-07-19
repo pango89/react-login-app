@@ -33,7 +33,7 @@ const styles = () => ({
     paddingTop: 300
   },
   textField: {
-    width: 250
+    width: 300
   },
   notchedOutline: {
     borderWidth: 2
@@ -49,7 +49,7 @@ const styles = () => ({
     color: ["#36A993", "!important"]
   },
   button: {
-    width: 250,
+    width: 300,
     height: 60,
     marginTop: 20,
     letterSpacing: "1px",
